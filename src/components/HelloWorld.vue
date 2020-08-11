@@ -134,20 +134,20 @@ export default {
         }
       }
     },
-    // removeCharacter: function(data) {
-    //   for( var i = 0; i < this.selectedCharacters.length; i++){ if ( this.selectedCharacters[i] = data.name) { this.selectedCharacters.splice(i, 1); i--; }}
-    //   // console.log(data.name)
+    removeCharacter: function(data) {
+      for( var i = 0; i < this.selectedCharacters.length; i++){ if ( this.selectedCharacters[i] = data.name) {this.selectedCharacters.splice(i, 1); i--; }}
       
-    // },
+    },
     handleClick: function(data, index) {
       var x = document.getElementsByClassName("card")[index];
       console.log("first character=>", this.characterData[index]);
       console.log("selected characters", this.selectedCharacters);
 
-      // if (this.selectedCharacters.includes(data.name)) {
-      //           x.style.backgroundColor = "white";
-      //         this.removeCharacter(data)            
-      // } 
+      if (this.selectedCharacters.includes(data.name)) {
+                x.style.backgroundColor = "white";
+              this.removeCharacter(data)            
+      } 
+
       if(this.selectedCharacters.length < 3 && !this.selectedCharacters.includes(data.name)){
           if (x.id == index ) {
         x.style.backgroundColor = "green";
