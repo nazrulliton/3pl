@@ -2,8 +2,14 @@
   <div class="hello">
     <div>
       <h1 class="titleText">STARWARS</h1>
-      <span class="lowerText">Select 3 Characters</span>
+
+      <span class="middleText" v-if="selectedCharacters.length>0 && selectedCharacters.length <=1">You have selected:{{selectedCharacters[0]}}</span>
+      <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}}</span>
+      <span class="middleText" v-if="selectedCharacters.length>2 && selectedCharacters.length <=3">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}},{{selectedCharacters[2]}} </span>
+      <span v-if="selectedCharacters != null  && selectedCharacters.length != null  && selectedCharacters.length <= 0" class="middleText">Select 3 Characters</span><br>
+
     </div>
+
     <b-container>
       <div class="rIcon">
         <b-icon-arrow-right
@@ -14,12 +20,13 @@
       <div class="lIcon" id="leftArr">
         <b-icon-arrow-left
           v-on:click="prevPage"
-          style="color: lightGrey; width: 120px; height: 120px"
-        ></b-icon-arrow-left>
+          style="color: lightGrey; width: 120px; height: 120px">
+        </b-icon-arrow-left>
       </div>
       <div class="pageDetails">
         <span style="color:white;">Page: {{pageCount}}/10</span>
       </div>
+
       <b-row class="cardRow">
         <b-col cols="4" v-bind:key="index" v-for="(value, index) in characterData">
           <b-card
@@ -45,6 +52,7 @@
           </b-card>
         </b-col>
       </b-row>
+
     </b-container>
   </div>
 </template>
@@ -135,31 +143,32 @@ export default {
       }
     },
     removeCharacter: function(data) {
-      for( var i = 0; i < this.selectedCharacters.length; i++){ if ( this.selectedCharacters[i] = data.name) {this.selectedCharacters.splice(i, 1); i--; }}
-      
+      for (var i = 0; i < this.selectedCharacters.length; i++) {
+        if (this.selectedCharacters[i] === data.name) {
+          this.selectedCharacters.splice(i, 1);
+        }
+      }
     },
     handleClick: function(data, index) {
       var x = document.getElementsByClassName("card")[index];
-      console.log("first character=>", this.characterData[index]);
-      console.log("selected characters", this.selectedCharacters);
-
+      // console.log("first character=>", this.characterData[index]);
       if (this.selectedCharacters.includes(data.name)) {
-                x.style.backgroundColor = "white";
-              this.removeCharacter(data)            
-      } 
-
-      if(this.selectedCharacters.length < 3 && !this.selectedCharacters.includes(data.name)){
-          if (x.id == index ) {
-        x.style.backgroundColor = "green";
-        this.selectedCharacters.push(data.name);
-        var check = false;
-        } 
-       
-        
+        console.log("already selected!");
+        x.style.backgroundColor = "white";
+        this.removeCharacter(data);
+      } else {
+        if (
+          this.selectedCharacters.length < 3 &&
+          !this.selectedCharacters.includes(data.name)
+        ) {
+          if (x.id == index) {
+            x.style.backgroundColor = "green";
+            this.selectedCharacters.push(data.name);
+            var check = false;
+          }
+        }
       }
-      
-     
-      
+      console.log("selected characters", this.selectedCharacters);
     }
   }
 };
@@ -171,7 +180,7 @@ export default {
   font-size: 4rem;
   margin-bottom: 0;
 }
-.lowerText {
+.middleText {
   color: white;
   font-size: 2rem;
 }
