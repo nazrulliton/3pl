@@ -7,7 +7,11 @@
       <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}}</span>
       <span class="middleText" v-if="selectedCharacters.length>2 && selectedCharacters.length <=3">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}},{{selectedCharacters[2]}} </span>
       <span v-if="selectedCharacters != null  && selectedCharacters.length != null  && selectedCharacters.length <= 0" class="middleText">Select 3 Characters</span><br>
-
+      <b-row>
+        <b-col lg="4" class="pb-2">
+          <b-button size="lg" variant="success">Download</b-button>
+        <b-button size="lg" variant="danger">Reset</b-button></b-col>
+      </b-row>
     </div>
 
     <b-container>
