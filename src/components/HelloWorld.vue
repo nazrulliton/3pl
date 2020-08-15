@@ -169,13 +169,13 @@ export default {
           !this.selectedCharacters.includes(data.name)
         ) {
           if (x.id == index) {
-            x.style.backgroundColor = "green";
+            x.style.backgroundColor = "#70AD47";
             this.selectedCharacters.push(data.name);
             var check = false;
           }
         }
       }
-      console.log("selected characters", this.selectedCharacters);
+      // console.log("selected characters", this.selectedCharacters);
     },
     resetSelectedC: function(){
       console.log("reset selected characters pressed")
@@ -183,8 +183,37 @@ export default {
       location.reload();
 
     }, 
+    objectToCsv: function(data){
+      
+      const csvRows = []
+
+      //get all headers 
+      const headers = Object.keys(data[0]);
+      csvRows.push(headers.join(','));
+
+      console.log(csvRows)
+      //loop over the rows
+
+      for (const row of data){
+        const values = headers.map(header => {
+          return row[header];
+        });
+        console.log(values.join(','));
+      }
+
+      //form escaped comma separated values 
+
+
+
+
+
+    },
     downloadData: function(){
-      console.log("download button pressed");
+      const data = this.selectedCharacters.map(row =>({
+        name: row
+      }));
+      // console.log(data)
+      const csvData = this.objectToCsv(data);
     }
   }
 };
