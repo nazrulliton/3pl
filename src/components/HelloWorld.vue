@@ -179,7 +179,8 @@ export default {
     },
     resetSelectedC: function(){
       console.log("reset selected characters pressed")
-      // this.selectedCharacters.splice(0, this.selectedCharacters.length)
+      this.selectedCharacters.splice(0, this.selectedCharacters.length)
+      location.reload();
 
     }
   }
