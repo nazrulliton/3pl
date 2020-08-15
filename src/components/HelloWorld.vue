@@ -10,7 +10,7 @@
       <b-row >
         <b-col lg="4" class="pb-2"></b-col>
         <b-col  v-if="selectedCharacters.length>2" lg="4" class="pb-2">
-          <b-button size="lg" variant="success" style="marginRight:20px; width: 180px; fontWeight:600; backgroundColor:#70AD47;">DOWNLOAD</b-button>
+          <b-button v-on:click="downloadData()" size="lg" variant="success" style="marginRight:20px; width: 180px; fontWeight:600; backgroundColor:#70AD47;">DOWNLOAD</b-button>
           <b-button v-on:click="resetSelectedC()" size="lg" variant="danger" style="width: 180px;fontWeight:600;backgroundColor:#c00000; ">RESET</b-button>
         </b-col>
         <b-col lg="4" class="pb-2"></b-col>
@@ -182,6 +182,9 @@ export default {
       this.selectedCharacters.splice(0, this.selectedCharacters.length)
       location.reload();
 
+    }, 
+    downloadData: function(){
+      console.log("download button pressed");
     }
   }
 };
