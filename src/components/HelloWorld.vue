@@ -78,7 +78,6 @@ export default {
     startIndex: 1,
     endIndex: 10
   }),
-  
   created() {
     for (let index = this.startIndex; index < this.endIndex; index++) {
       console.log(index);
