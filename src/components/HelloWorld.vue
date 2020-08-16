@@ -83,13 +83,10 @@ export default {
   }),
   created() {
     for (let index = this.startIndex; index < this.endIndex; index++) {
-      console.log(index);
-      // let indexPosition = index;
       axios
         .get(`http://swapi.dev/api/people/${index}/`)
         .then(response => {
           this.characterData.push(response.data);
-          console.log(this.characterData);
         })
         .catch(e => {
           console.log("there was an error");
@@ -107,13 +104,10 @@ export default {
         console.log(this.endIndex);
         this.characterData = [];
         for (let index = this.startIndex; index < this.endIndex; index++) {
-          console.log(index);
-          // let indexPosition = index;
           axios
             .get(`http://swapi.dev/api/people/${index}/`)
             .then(response => {
               this.characterData.push(response.data);
-              console.log(this.characterData);
             })
             .catch(e => {
               console.log("there was an error");
@@ -130,17 +124,15 @@ export default {
         this.pageCount = this.pageCount - 1;
         this.startIndex = this.startIndex - 9;
         this.endIndex = this.endIndex - 9;
-        // console.log(this.startIndex);
-        // console.log(this.endIndex);
+       
         this.characterData = [];
+
         for (let index = this.startIndex; index < this.endIndex; index++) {
-          // console.log(index);
-          // let indexPosition = index;
           axios
             .get(`http://swapi.dev/api/people/${index}/`)
             .then(response => {
               this.characterData.push(response.data);
-              console.log(this.characterData);
+              // console.log(this.characterData);
             })
             .catch(e => {
               console.log("there was an error");
@@ -163,7 +155,9 @@ export default {
       var x = document.getElementsByClassName("card")[index];
       // console.log("first character=>", this.characterData[index]);
       if (this.selectedCharacters.includes(data)) {
-        console.log("already selected!");
+        alert("already selected!")
+         ev.preventDefault();
+               return false;
         x.style.backgroundColor = "white";
         this.removeCharacter(data);
       } else {
@@ -178,7 +172,6 @@ export default {
           }
         }
       }
-      // console.log("selected characters", this.selectedCharacters);
     },
     resetSelectedC: function(){
       console.log("reset selected characters pressed")
