@@ -2,7 +2,7 @@
   <div class="hello">
     <div>
       <div>
-        <h1 class="titleText">STAR<br>WARS</h1>
+        <h1 class="titleText">STARWARS</h1>
       </div>
       <span class="middleText" v-if="selectedCharacters.length>0 && selectedCharacters.length <=1">You have selected:{{selectedCharacters[0].name}}</span>
       <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0].name}},{{selectedCharacters[1].name}}</span>
@@ -130,11 +130,11 @@ export default {
         this.pageCount = this.pageCount - 1;
         this.startIndex = this.startIndex - 9;
         this.endIndex = this.endIndex - 9;
-        console.log(this.startIndex);
-        console.log(this.endIndex);
+        // console.log(this.startIndex);
+        // console.log(this.endIndex);
         this.characterData = [];
         for (let index = this.startIndex; index < this.endIndex; index++) {
-          console.log(index);
+          // console.log(index);
           // let indexPosition = index;
           axios
             .get(`http://swapi.dev/api/people/${index}/`)
@@ -251,6 +251,7 @@ export default {
   color: black;
   -webkit-text-stroke: 2px yellow;
   font-size: 4rem;
+  font-weight: 900;
   margin-bottom: 0;
   position: absolute;
   top: 0;
