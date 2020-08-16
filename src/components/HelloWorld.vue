@@ -153,7 +153,6 @@ export default {
     },
     handleClick: function(data, index) {
       var x = document.getElementsByClassName("card")[index];
-      // console.log("first character=>", this.characterData[index]);
       if (this.selectedCharacters.includes(data)) {
         alert("already selected!")
          event.preventDefault();

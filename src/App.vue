@@ -24,10 +24,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  /* width: 100%; */
 }
 body{
     background-image: url('./assets/backSky.jpg');
-    background-size:cover ;
-   
+    width: 95%;
 }
 </style>
