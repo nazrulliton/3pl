@@ -3,9 +3,9 @@
     <div>
       <h1 class="titleText">STARWARS</h1>
 
-      <span class="middleText" v-if="selectedCharacters.length>0 && selectedCharacters.length <=1">You have selected:{{selectedCharacters[0]}}</span>
-      <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}}</span>
-      <span class="middleText" v-if="selectedCharacters.length>2 && selectedCharacters.length <=3">You have selected:{{selectedCharacters[0]}},{{selectedCharacters[1]}},{{selectedCharacters[2]}} </span>
+      <span class="middleText" v-if="selectedCharacters.length>0 && selectedCharacters.length <=1">You have selected:{{selectedCharacters[0].name}}</span>
+      <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0].name}},{{selectedCharacters[1].name}}</span>
+      <span class="middleText" v-if="selectedCharacters.length>2 && selectedCharacters.length <=3">You have selected:{{selectedCharacters[0].name}},{{selectedCharacters[1].name}},{{selectedCharacters[2].name}} </span>
       <span v-if="selectedCharacters != null  && selectedCharacters.length != null  && selectedCharacters.length <= 0" class="middleText">Select 3 Characters</span><br>
       <b-row >
         <b-col lg="4" class="pb-2"></b-col>
@@ -151,7 +151,7 @@ export default {
     },
     removeCharacter: function(data) {
       for (var i = 0; i < this.selectedCharacters.length; i++) {
-        if (this.selectedCharacters[i] === data.name) {
+        if (this.selectedCharacters[i] === data) {
           this.selectedCharacters.splice(i, 1);
         }
       }
@@ -159,18 +159,18 @@ export default {
     handleClick: function(data, index) {
       var x = document.getElementsByClassName("card")[index];
       // console.log("first character=>", this.characterData[index]);
-      if (this.selectedCharacters.includes(data.name)) {
+      if (this.selectedCharacters.includes(data)) {
         console.log("already selected!");
         x.style.backgroundColor = "white";
         this.removeCharacter(data);
       } else {
         if (
           this.selectedCharacters.length < 3 &&
-          !this.selectedCharacters.includes(data.name)
+          !this.selectedCharacters.includes(data)
         ) {
           if (x.id == index) {
             x.style.backgroundColor = "#70AD47";
-            this.selectedCharacters.push(data.name);
+            this.selectedCharacters.push(data);
             var check = false;
           }
         }
@@ -182,7 +182,20 @@ export default {
       this.selectedCharacters.splice(0, this.selectedCharacters.length)
       location.reload();
 
-    }, 
+    },
+    download: function(data){
+      const blob = new Blob([data], {type: "text/csv"})
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('hidden', '');
+      a.setAttribute('href', url)
+      a.setAttribute('download', 'download.csv');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+
+    },
     objectToCsv: function(data){
       
       const csvRows = []
@@ -191,29 +204,41 @@ export default {
       const headers = Object.keys(data[0]);
       csvRows.push(headers.join(','));
 
-      console.log(csvRows)
+      // console.log(csvRows)
       //loop over the rows
 
       for (const row of data){
         const values = headers.map(header => {
-          return row[header];
+          const escaped = (''+row[header]).replace(/"/g, '\\"');
+          return `"${escaped}"`;
         });
-        console.log(values.join(','));
+        csvRows.push(values.join(','));
       }
-
       //form escaped comma separated values 
-
-
-
-
-
+      return csvRows.join('\n')
     },
     downloadData: function(){
       const data = this.selectedCharacters.map(row =>({
-        name: row
+        name: row.name,
+        height: row.height,
+        mass: row.mass,
+        hair_color: row.hair_color,
+        skin_color: row.skin_color,
+        eye_color: row.eye_color,
+        birth_year: row.birth_year,
+        gender: row.gender,
+        homeworld: row.homeworld,
+        films: row.films,
+        species: row.species,
+        vehicles: row.vehicles,
+        starships: row.starships,
+        created: row.created,
+        edited: row.edited,
+        url: row.url
       }));
       // console.log(data)
       const csvData = this.objectToCsv(data);
+      this.download(csvData)
     }
   }
 };
