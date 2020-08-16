@@ -28,6 +28,6 @@ export default {
 body{
     background-image: url('./assets/backSky.jpg');
     background-size:cover ;
-
+   
 }
 </style>

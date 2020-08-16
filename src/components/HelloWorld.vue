@@ -1,12 +1,14 @@
 <template>
   <div class="hello">
     <div>
-      <h1 class="titleText">STARWARS</h1>
-
+      <div>
+        <h1 class="titleText">STAR<br>WARS</h1>
+      </div>
       <span class="middleText" v-if="selectedCharacters.length>0 && selectedCharacters.length <=1">You have selected:{{selectedCharacters[0].name}}</span>
       <span class="middleText" v-if="selectedCharacters.length>1 && selectedCharacters.length <=2">You have selected:{{selectedCharacters[0].name}},{{selectedCharacters[1].name}}</span>
       <span class="middleText" v-if="selectedCharacters.length>2 && selectedCharacters.length <=3">You have selected:{{selectedCharacters[0].name}},{{selectedCharacters[1].name}},{{selectedCharacters[2].name}} </span>
       <span v-if="selectedCharacters != null  && selectedCharacters.length != null  && selectedCharacters.length <= 0" class="middleText">Select 3 Characters</span><br>
+      
       <b-row >
         <b-col lg="4" class="pb-2"></b-col>
         <b-col  v-if="selectedCharacters.length>2" lg="4" class="pb-2">
@@ -15,6 +17,7 @@
         </b-col>
         <b-col lg="4" class="pb-2"></b-col>
       </b-row>
+
     </div>
 
     <b-container>
@@ -249,6 +252,9 @@ export default {
   -webkit-text-stroke: 2px yellow;
   font-size: 4rem;
   margin-bottom: 0;
+  position: absolute;
+  top: 0;
+  right: 40%;
 }
 .middleText {
   color: white;
