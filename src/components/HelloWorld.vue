@@ -156,7 +156,7 @@ export default {
       // console.log("first character=>", this.characterData[index]);
       if (this.selectedCharacters.includes(data)) {
         alert("already selected!")
-         ev.preventDefault();
+         event.preventDefault();
                return false;
         x.style.backgroundColor = "white";
         this.removeCharacter(data);
